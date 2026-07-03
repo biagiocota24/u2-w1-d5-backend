@@ -2,6 +2,7 @@ package biagio_cota.runners;
 
 import biagio_cota.entities.Edificio;
 import biagio_cota.entities.Postazione;
+import biagio_cota.entities.Prenotazione;
 import biagio_cota.entities.Utente;
 import biagio_cota.enums.TipoPostazione;
 import biagio_cota.repositories.UtenteRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class Runner implements CommandLineRunner {
@@ -95,80 +97,93 @@ public class Runner implements CommandLineRunner {
         Utente anna = utenteService.getUtenteByUserName("anna.verdi");
         Utente luca = utenteService.getUtenteByUserName("luca.ferrari");
 
-        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 8, 12), 1);
-        prenotazioneService.prenota(giulia, bariVistaMare, LocalDate.of(2026, 8, 12), 1);
+//        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 8, 12), 1);
+//        prenotazioneService.prenota(giulia, bariVistaMare, LocalDate.of(2026, 8, 12), 1);
+//
+//// ---- 40 prenotazioni con combinazioni distinte ----
+//        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 8, 1), 1);
+//        prenotazioneService.prenota(giulia, bariVistaMare, LocalDate.of(2026, 8, 2), 1);
+//        prenotazioneService.prenota(marco, bariVistaMare, LocalDate.of(2026, 8, 3), 1);
+//        prenotazioneService.prenota(anna, bariVistaMare, LocalDate.of(2026, 8, 4), 1);
+//        prenotazioneService.prenota(luca, bariVistaMare, LocalDate.of(2026, 8, 5), 1);
+//
+//        prenotazioneService.prenota(biagio, bariPianoTerra, LocalDate.of(2026, 8, 1), 10);
+//        prenotazioneService.prenota(giulia, bariPianoTerra, LocalDate.of(2026, 8, 2), 15);
+//        prenotazioneService.prenota(marco, bariPianoTerra, LocalDate.of(2026, 8, 3), 8);
+//        prenotazioneService.prenota(anna, bariPianoTerra, LocalDate.of(2026, 8, 4), 20);
+//        prenotazioneService.prenota(luca, bariPianoTerra, LocalDate.of(2026, 8, 5), 5);
+//
+//        prenotazioneService.prenota(biagio, bariSalaAdriatico, LocalDate.of(2026, 8, 6), 6);
+//        prenotazioneService.prenota(giulia, bariSalaAdriatico, LocalDate.of(2026, 8, 7), 8);
+//        prenotazioneService.prenota(marco, bariSalaAdriatico, LocalDate.of(2026, 8, 8), 4);
+//        prenotazioneService.prenota(anna, bariSalaAdriatico, LocalDate.of(2026, 8, 9), 7);
+//        prenotazioneService.prenota(luca, bariSalaAdriatico, LocalDate.of(2026, 8, 10), 2);
+//
+//        prenotazioneService.prenota(biagio, milanoUfficio, LocalDate.of(2026, 8, 11), 1);
+//        prenotazioneService.prenota(giulia, milanoUfficio, LocalDate.of(2026, 8, 12), 1);
+//        prenotazioneService.prenota(marco, milanoUfficio, LocalDate.of(2026, 8, 13), 1);
+//        prenotazioneService.prenota(anna, milanoUfficio, LocalDate.of(2026, 8, 14), 1);
+//        prenotazioneService.prenota(luca, milanoUfficio, LocalDate.of(2026, 8, 15), 1);
+//
+//        prenotazioneService.prenota(biagio, milanoOpenSpace, LocalDate.of(2026, 8, 11), 20);
+//        prenotazioneService.prenota(giulia, milanoOpenSpace, LocalDate.of(2026, 8, 12), 30);
+//        prenotazioneService.prenota(marco, milanoOpenSpace, LocalDate.of(2026, 8, 13), 15);
+//        prenotazioneService.prenota(anna, milanoOpenSpace, LocalDate.of(2026, 8, 14), 35);
+//        prenotazioneService.prenota(luca, milanoOpenSpace, LocalDate.of(2026, 8, 15), 25);
+//
+//        prenotazioneService.prenota(biagio, milanoDuomo, LocalDate.of(2026, 8, 16), 10);
+//        prenotazioneService.prenota(giulia, milanoDuomo, LocalDate.of(2026, 8, 17), 12);
+//        prenotazioneService.prenota(marco, milanoDuomo, LocalDate.of(2026, 8, 18), 6);
+//        prenotazioneService.prenota(anna, milanoDuomo, LocalDate.of(2026, 8, 19), 9);
+//        prenotazioneService.prenota(luca, milanoDuomo, LocalDate.of(2026, 8, 20), 4);
+//
+//        prenotazioneService.prenota(biagio, romauffcio, LocalDate.of(2026, 8, 21), 2);
+//        prenotazioneService.prenota(giulia, romauffcio, LocalDate.of(2026, 8, 22), 1);
+//        prenotazioneService.prenota(marco, romauffcio, LocalDate.of(2026, 8, 23), 2);
+//        prenotazioneService.prenota(anna, romauffcio, LocalDate.of(2026, 8, 24), 1);
+//        prenotazioneService.prenota(luca, romauffcio, LocalDate.of(2026, 8, 25), 2);
+//
+//        prenotazioneService.prenota(biagio, romapenSpace, LocalDate.of(2026, 8, 21), 15);
+//        prenotazioneService.prenota(giulia, romapenSpace, LocalDate.of(2026, 8, 22), 20);
+//        prenotazioneService.prenota(marco, romapenSpace, LocalDate.of(2026, 8, 23), 25);
+//        prenotazioneService.prenota(anna, romapenSpace, LocalDate.of(2026, 8, 24), 10);
+//        prenotazioneService.prenota(luca, romapenSpace, LocalDate.of(2026, 8, 25), 18);
+//
+//// ---- 10 prenotazioni con sovrapposizione intenzionale  ----
+//        prenotazioneService.prenota(marco, bariVistaMare, LocalDate.of(2026, 8, 1), 1);
+//        prenotazioneService.prenota(anna, bariPianoTerra, LocalDate.of(2026, 8, 3), 12);
+//        prenotazioneService.prenota(luca, bariSalaAdriatico, LocalDate.of(2026, 8, 7), 5);
+//        prenotazioneService.prenota(biagio, milanoUfficio, LocalDate.of(2026, 8, 13), 1);
+//        prenotazioneService.prenota(giulia, milanoOpenSpace, LocalDate.of(2026, 8, 14), 28);
+//        prenotazioneService.prenota(marco, milanoDuomo, LocalDate.of(2026, 8, 18), 7);
+//        prenotazioneService.prenota(anna, romauffcio, LocalDate.of(2026, 8, 22), 2);
+//        prenotazioneService.prenota(luca, romapenSpace, LocalDate.of(2026, 8, 24), 22);
+//        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 8, 4), 1);
+//        prenotazioneService.prenota(giulia, milanoUfficio, LocalDate.of(2026, 8, 15), 1);
+//
+//// ---- 10 prenotazioni che superano la capacità massima  ----
+//        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 9, 1), 3);
+//        prenotazioneService.prenota(giulia, milanoUfficio, LocalDate.of(2026, 9, 2), 4);
+//        prenotazioneService.prenota(marco, romauffcio, LocalDate.of(2026, 9, 3), 6);
+//        prenotazioneService.prenota(anna, bariSalaAdriatico, LocalDate.of(2026, 9, 4), 15);
+//        prenotazioneService.prenota(luca, milanoDuomo, LocalDate.of(2026, 9, 5), 20);
+//        prenotazioneService.prenota(biagio, bariPianoTerra, LocalDate.of(2026, 9, 6), 25);
+//        prenotazioneService.prenota(giulia, romapenSpace, LocalDate.of(2026, 9, 7), 30);
+//        prenotazioneService.prenota(marco, milanoOpenSpace, LocalDate.of(2026, 9, 8), 40);
+//        prenotazioneService.prenota(anna, bariVistaMare, LocalDate.of(2026, 9, 9), 2);
+//        Prenotazione p1 = prenotazioneService.prenota(luca, romauffcio, LocalDate.of(2026, 9, 10), 5);
 
-// ---- 40 prenotazioni con combinazioni distinte ----
-        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 8, 1), 1);
-        prenotazioneService.prenota(giulia, bariVistaMare, LocalDate.of(2026, 8, 2), 1);
-        prenotazioneService.prenota(marco, bariVistaMare, LocalDate.of(2026, 8, 3), 1);
-        prenotazioneService.prenota(anna, bariVistaMare, LocalDate.of(2026, 8, 4), 1);
-        prenotazioneService.prenota(luca, bariVistaMare, LocalDate.of(2026, 8, 5), 1);
+//        //CERCA POSTAZIONE PER TIPOLOGIA
+//        postazioneService.getPostazioniByType(TipoPostazione.PRIVATO);
+//        postazioneService.getPostazioniByType(TipoPostazione.OPENSPACE);
+//        postazioneService.getPostazioniByType(TipoPostazione.SALA_RIUNIONI);
+//
+//        //CERCA POSTAZIONE PER CITTA O PARTE DEL NOME DELLA CITTA
+//        postazioneService.getPostazioniByCitY("b");
 
-        prenotazioneService.prenota(biagio, bariPianoTerra, LocalDate.of(2026, 8, 1), 10);
-        prenotazioneService.prenota(giulia, bariPianoTerra, LocalDate.of(2026, 8, 2), 15);
-        prenotazioneService.prenota(marco, bariPianoTerra, LocalDate.of(2026, 8, 3), 8);
-        prenotazioneService.prenota(anna, bariPianoTerra, LocalDate.of(2026, 8, 4), 20);
-        prenotazioneService.prenota(luca, bariPianoTerra, LocalDate.of(2026, 8, 5), 5);
+//        Prenotazione p1 = prenotazioneService.getById(UUID.fromString("943e5344-2606-4cca-bcdb-40ab9357c14e"));
 
-        prenotazioneService.prenota(biagio, bariSalaAdriatico, LocalDate.of(2026, 8, 6), 6);
-        prenotazioneService.prenota(giulia, bariSalaAdriatico, LocalDate.of(2026, 8, 7), 8);
-        prenotazioneService.prenota(marco, bariSalaAdriatico, LocalDate.of(2026, 8, 8), 4);
-        prenotazioneService.prenota(anna, bariSalaAdriatico, LocalDate.of(2026, 8, 9), 7);
-        prenotazioneService.prenota(luca, bariSalaAdriatico, LocalDate.of(2026, 8, 10), 2);
-
-        prenotazioneService.prenota(biagio, milanoUfficio, LocalDate.of(2026, 8, 11), 1);
-        prenotazioneService.prenota(giulia, milanoUfficio, LocalDate.of(2026, 8, 12), 1);
-        prenotazioneService.prenota(marco, milanoUfficio, LocalDate.of(2026, 8, 13), 1);
-        prenotazioneService.prenota(anna, milanoUfficio, LocalDate.of(2026, 8, 14), 1);
-        prenotazioneService.prenota(luca, milanoUfficio, LocalDate.of(2026, 8, 15), 1);
-
-        prenotazioneService.prenota(biagio, milanoOpenSpace, LocalDate.of(2026, 8, 11), 20);
-        prenotazioneService.prenota(giulia, milanoOpenSpace, LocalDate.of(2026, 8, 12), 30);
-        prenotazioneService.prenota(marco, milanoOpenSpace, LocalDate.of(2026, 8, 13), 15);
-        prenotazioneService.prenota(anna, milanoOpenSpace, LocalDate.of(2026, 8, 14), 35);
-        prenotazioneService.prenota(luca, milanoOpenSpace, LocalDate.of(2026, 8, 15), 25);
-
-        prenotazioneService.prenota(biagio, milanoDuomo, LocalDate.of(2026, 8, 16), 10);
-        prenotazioneService.prenota(giulia, milanoDuomo, LocalDate.of(2026, 8, 17), 12);
-        prenotazioneService.prenota(marco, milanoDuomo, LocalDate.of(2026, 8, 18), 6);
-        prenotazioneService.prenota(anna, milanoDuomo, LocalDate.of(2026, 8, 19), 9);
-        prenotazioneService.prenota(luca, milanoDuomo, LocalDate.of(2026, 8, 20), 4);
-
-        prenotazioneService.prenota(biagio, romauffcio, LocalDate.of(2026, 8, 21), 2);
-        prenotazioneService.prenota(giulia, romauffcio, LocalDate.of(2026, 8, 22), 1);
-        prenotazioneService.prenota(marco, romauffcio, LocalDate.of(2026, 8, 23), 2);
-        prenotazioneService.prenota(anna, romauffcio, LocalDate.of(2026, 8, 24), 1);
-        prenotazioneService.prenota(luca, romauffcio, LocalDate.of(2026, 8, 25), 2);
-
-        prenotazioneService.prenota(biagio, romapenSpace, LocalDate.of(2026, 8, 21), 15);
-        prenotazioneService.prenota(giulia, romapenSpace, LocalDate.of(2026, 8, 22), 20);
-        prenotazioneService.prenota(marco, romapenSpace, LocalDate.of(2026, 8, 23), 25);
-        prenotazioneService.prenota(anna, romapenSpace, LocalDate.of(2026, 8, 24), 10);
-        prenotazioneService.prenota(luca, romapenSpace, LocalDate.of(2026, 8, 25), 18);
-
-// ---- 10 prenotazioni con sovrapposizione intenzionale (stessa postazione + stessa data di alcune sopra) ----
-        prenotazioneService.prenota(marco, bariVistaMare, LocalDate.of(2026, 8, 1), 1);          // sovrapposta a biagio, 8/1
-        prenotazioneService.prenota(anna, bariPianoTerra, LocalDate.of(2026, 8, 3), 12);          // sovrapposta a marco, 8/3
-        prenotazioneService.prenota(luca, bariSalaAdriatico, LocalDate.of(2026, 8, 7), 5);        // sovrapposta a giulia, 8/7
-        prenotazioneService.prenota(biagio, milanoUfficio, LocalDate.of(2026, 8, 13), 1);         // sovrapposta a marco, 8/13
-        prenotazioneService.prenota(giulia, milanoOpenSpace, LocalDate.of(2026, 8, 14), 28);      // sovrapposta a anna, 8/14
-        prenotazioneService.prenota(marco, milanoDuomo, LocalDate.of(2026, 8, 18), 7);            // sovrapposta a marco stesso, 8/18
-        prenotazioneService.prenota(anna, romauffcio, LocalDate.of(2026, 8, 22), 2);              // sovrapposta a giulia, 8/22
-        prenotazioneService.prenota(luca, romapenSpace, LocalDate.of(2026, 8, 24), 22);           // sovrapposta a anna, 8/24
-        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 8, 4), 1);          // sovrapposta a anna, 8/4
-        prenotazioneService.prenota(giulia, milanoUfficio, LocalDate.of(2026, 8, 15), 1);         // sovrapposta a luca, 8/15
-
-// ---- 10 prenotazioni che superano la capacità massima della postazione richiesta ----
-        prenotazioneService.prenota(biagio, bariVistaMare, LocalDate.of(2026, 9, 1), 3);          // max 1, richiesti 3
-        prenotazioneService.prenota(giulia, milanoUfficio, LocalDate.of(2026, 9, 2), 4);          // max 1, richiesti 4
-        prenotazioneService.prenota(marco, romauffcio, LocalDate.of(2026, 9, 3), 6);              // max 2, richiesti 6
-        prenotazioneService.prenota(anna, bariSalaAdriatico, LocalDate.of(2026, 9, 4), 15);       // max 8, richiesti 15
-        prenotazioneService.prenota(luca, milanoDuomo, LocalDate.of(2026, 9, 5), 20);             // max 12, richiesti 20
-        prenotazioneService.prenota(biagio, bariPianoTerra, LocalDate.of(2026, 9, 6), 25);        // max 20, richiesti 25
-        prenotazioneService.prenota(giulia, romapenSpace, LocalDate.of(2026, 9, 7), 30);          // max 25, richiesti 30
-        prenotazioneService.prenota(marco, milanoOpenSpace, LocalDate.of(2026, 9, 8), 40);        // max 35, richiesti 40
-        prenotazioneService.prenota(anna, bariVistaMare, LocalDate.of(2026, 9, 9), 2);            // max 1, richiesti 2
-        prenotazioneService.prenota(luca, romauffcio, LocalDate.of(2026, 9, 10), 5);              // max 2, richiesti 5
+        //RIMUOVE UNA PRENOTAZIONE
+//        prenotazioneService.deleteById(UUID.fromString("sgdsfsdfds"));
     }
 }

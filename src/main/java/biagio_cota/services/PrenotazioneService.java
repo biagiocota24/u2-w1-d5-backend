@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -62,7 +63,11 @@ public class PrenotazioneService {
     }
 
     public void deleteById(UUID id) {
-        Prenotazione fromdb = prenotazioneRepository.findById(id).orElseThrow(() -> new RuntimeException("prenotazione non trovata"));
-        prenotazioneRepository.delete(fromdb);
+        Optional<Prenotazione> fromdb = prenotazioneRepository.findById(id);
+        if (fromdb.isPresent()) {
+            prenotazioneRepository.delete(fromdb.get());
+        } else {
+            System.out.println("Prenotazione non trovata!");
+        }
     }
 }
